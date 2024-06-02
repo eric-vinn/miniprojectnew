@@ -1,0 +1,17 @@
+body{
+    background-color: #344955;
+}
+
+.login{
+    width: 12%;
+    height: 300px;
+    background-color: #50727B;
+    position: relative;
+    left: 42%;
+    top: 170px;
+    border-style: solid;
+    border-color: #50727B;
+    border-radius: 20px;
+    padding: 20px
+
+}
