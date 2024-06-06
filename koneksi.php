@@ -1,21 +1,11 @@
 <?php
-$host = 'localhost';
-$db   = 'penjualantiket';
-$user = 'root';
-$pass = '';
-$charset = 'utf8mb4';
-$port = 3306; // Pastikan port ini benar
+$host = "localhost";
+$user = "root";
+$pass = "";
+$data = "penjualantiket";
+$port = "3306";
 
-$dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
-];
+$conn = mysqli_connect($host, $user, $pass, $data, $port);
 
-try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
-}
-?>
+$pdo = new PDO("mysql:host=$host;dbname=$data", $user, $pass);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
