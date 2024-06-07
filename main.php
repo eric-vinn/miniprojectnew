@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user'])) {
+    header('Location: login.php');
+    exit(); // Ensure script stops executing after redirect
+}
+
+// Your main.php content goes here
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,6 +111,11 @@
 
         });
     </script>
+
+    <div id="content">
+        <h1>Welcome, <?php echo htmlspecialchars($_SESSION['user']); ?>!</h1>
+        <p>This is the main page content.</p>
+    </div>
 </body>
 
 </html>

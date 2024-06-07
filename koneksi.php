@@ -1,11 +1,14 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$data = "penjualantiket";
-$port = "3306";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "penjualantiket";
 
-$conn = mysqli_connect($host, $user, $pass, $data, $port);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-$pdo = new PDO("mysql:host=$host;dbname=$data", $user, $pass);
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+echo "Connected successfully";
+?>

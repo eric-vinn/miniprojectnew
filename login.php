@@ -1,25 +1,21 @@
 <?php
-include 'koneksi.php';
+require 'function.php';
 
-if (isset($_POST['login'])) {
-    $email = $_POST['EmailLogin'];
-    $password = $_POST['PasswordEmail'];
 
-    mysqli_query($conn, "SELECT * FROM users WHERE email = '$email");
+if (isset($_POST["login"])){
+    $username = $_POST["email"];
+    $password = $_POST["password"];
 
-    //cek username
+    $result = mysqli_query($conn, "SELECT * users WHERE email ='$username'");
+
     if (mysqli_num_rows($result) === 1) {
-        //cek password
-
         $row = mysqli_fetch_assoc($result);
-        if (password_verify($password, $row['password'])) {
-            header('Location: main.html');
+        if (mysqli_query($password, $row["password"])) {
+            header("Location: main.php");
+            exit;
         }
     }
-
-    $error = true;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -34,8 +30,8 @@ if (isset($_POST['login'])) {
 
 <body>
     <div class="login">
-        <form action="" method="post">
-            <label>Login: </label>
+        <form action="main.php" method="post">
+            <label>Email: </label>
             <br>
             <input type="text" id="EmailLogin" name="email" required>
             <br>
@@ -43,8 +39,13 @@ if (isset($_POST['login'])) {
             <br>
             <input type="password" id="PasswordEmail" name="password" required>
             <br>
-            <input type="submit" value="Login">
+            <input type="submit" name="login" value="Login">
         </form>
+        <?php
+        if (!empty($error)) {
+            echo "<p style='color: red;'>$error</p>";
+        }
+        ?>
     </div>
 </body>
 
