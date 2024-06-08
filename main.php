@@ -1,15 +1,6 @@
 <?php
 session_start();
-
-// Check if user is logged in
-if (!isset($_SESSION['user'])) {
-    header('Location: login.php');
-    exit(); // Ensure script stops executing after redirect
-}
-
-// Your main.php content goes here
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +21,7 @@ if (!isset($_SESSION['user'])) {
             </form>
             <ul>
                 <li>
-                    <a href="main.html">Home</a>
+                    <a href="main.php">Home</a>
                 </li>
                 <li>
                     <a href="#">Contact</a>
@@ -38,9 +29,15 @@ if (!isset($_SESSION['user'])) {
                 <li>
                     <a href="#">About</a>
                 </li>
-                <li>
-                    <a href="login.php">Logout</a>
-                </li>
+                <?php if (isset($_SESSION['user'])): ?>
+                    <li>
+                        <a href="logout.php">Logout</a>
+                    </li>
+                <?php else: ?>
+                    <li>
+                        <a href="login.php">Login</a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </nav>
     </header>
@@ -113,8 +110,13 @@ if (!isset($_SESSION['user'])) {
     </script>
 
     <div id="content">
-        <h1>Welcome, <?php echo htmlspecialchars($_SESSION['user']); ?>!</h1>
-        <p>This is the main page content.</p>
+        <?php if (isset($_SESSION['user'])): ?>
+            <h1>Welcome, <?php echo htmlspecialchars($_SESSION['user']); ?>!</h1>
+            <p>This is the main page content.</p>
+        <?php else: ?>
+            <h1>Welcome, Guest!</h1>
+            <p>Please <a href="login.php">login</a> to access more features.</p>
+        <?php endif; ?>
     </div>
 </body>
 

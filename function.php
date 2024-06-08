@@ -15,6 +15,8 @@ function connectDB() {
         die("Connection failed: " . $conn->connect_error);
     }
 
+    echo "Connected successfully";
+
     return $conn;
 }
 
@@ -49,6 +51,31 @@ function tambah($data) {
     $conn->close();
     
     return $affectedRows;
+}
+
+function login($username, $password) {
+    $conn = connectDB();
+
+    $query = "SELECT * FROM users WHERE email = '$username'";
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+        if (password_verify($password, $user['password'])) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+$conn = connectDB();
+if ($conn) {
+    echo "Connected successfully";
+} else {
+    echo "Connection failed";
 }
 
 
